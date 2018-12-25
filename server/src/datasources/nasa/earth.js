@@ -14,7 +14,16 @@ class NASAEarthAPI extends RESTDataSource {
       dim,
       api_key: process.env.NASA_API_KEY
     });
-    console.log(res);
+    return res;
+  }
+
+  async getEarthImageAssets(lat, lon, begin) {
+    const res = await this.get('assets', {
+      lat,
+      lon,
+      begin,
+      api_key: process.env.NASA_API_KEY
+    });
     return res;
   }
 }
