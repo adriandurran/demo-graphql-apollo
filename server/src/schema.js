@@ -46,12 +46,19 @@ const typeDefs = gql`
     image: String
     date: String
     coords: Coords
+    sat_pos: Position
     image_locations: ImageLocations
   }
 
   type Coords {
     lat: Float
     lon: Float
+  }
+
+  type Position {
+    x: Float
+    y: Float
+    z: Float
   }
 
   type ImageLocations {

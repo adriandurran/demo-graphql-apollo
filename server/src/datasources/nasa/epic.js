@@ -14,18 +14,42 @@ class NASAEpicAPI extends RESTDataSource {
   }
 
   epicListReducer(epic) {
-    const { identifier, caption, image, coords, date } = epic;
-    const imgDate = moment(date);
-    const epicImageUrl = `${this.imageUrl}/${imgDate.year()}/${imgDate.month() +
-      1}/${imgDate.date()}`;
+    const {
+      identifier,
+      caption,
+      image,
+      coords,
+      date,
+      centroid_coordinates,
+      dscovr_j2000_position
+    } = epic;
+    const imgDate = moment(date, 'YYYY-MM-DD');
+    let imgMonth = imgDate.month() + 1;
+    if (imgMonth <= 9) {
+      imgMonth = `0${imgMonth}`;
+    }
+    let imgDay = imgDate.date();
+
+    if (imgDay <= 9) {
+      imgDay = `0${imgDay}`;
+    }
+    const epicImageUrl = `${
+      this.imageUrl
+    }/${imgDate.year()}/${imgMonth}/${imgDay}`;
+
     return {
       identifier,
       caption,
       image,
       date,
       coords: {
-        lat: coords.centroid_coordinates.lat,
-        lon: coords.centroid_coordinates.lon
+        lat: centroid_coordinates.lat,
+        lon: centroid_coordinates.lon
+      },
+      sat_pos: {
+        x: dscovr_j2000_position.x,
+        y: dscovr_j2000_position.y,
+        z: dscovr_j2000_position.z
       },
       image_locations: {
         thumb: `${epicImageUrl}/thumbs/${image}.jpg`,
