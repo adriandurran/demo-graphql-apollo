@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+  apollo_server:
+    build:
+      context: ./server
+    volumes:
+      - ./server:/usr/src/app
+      - /usr/src/app/node_modules/
+
+    env_file:
+      - ./server/server.env
+    ports:
+      - 4000:4000
+    container_name: apollo_server
+    command: ['npm', 'start']
