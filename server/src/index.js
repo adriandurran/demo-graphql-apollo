@@ -4,6 +4,7 @@ const resolvers = require('./resolvers');
 
 const NASAEarthAPI = require('./datasources/nasa/earth');
 const NASAEpicAPI = require('./datasources/nasa/epic');
+const ResourceCalendarAPI = require('./datasources/google/resCal');
 
 const server = new ApolloServer({
   typeDefs,
@@ -11,6 +12,7 @@ const server = new ApolloServer({
   dataSources: () => ({
     nasaEarthAPI: new NASAEarthAPI(),
     nasaEpicAPI: new NASAEpicAPI()
+    // resourceCalendarAPI: new ResourceCalendarAPI()
   })
 });
 
